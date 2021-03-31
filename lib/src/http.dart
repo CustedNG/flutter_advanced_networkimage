@@ -204,7 +204,6 @@ class Cookies {
   }
 
   List<Cookie> _cookies;
-  Map<String, List<Cookies>> _sessions;
   File path;
 
   Future<void> _initCookies() async {
