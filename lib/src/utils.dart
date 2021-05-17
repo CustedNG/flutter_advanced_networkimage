@@ -309,7 +309,7 @@ Future<Uint8List> loadFromRemote(
   UrlResolver getRealUrl, {
   List<int> skipRetryStatusCode,
   bool printError = false,
-  http.Client client,
+  client,
 }) async {
   assert(url != null);
   assert(retryLimit != null);
@@ -355,7 +355,7 @@ Future<Uint8List> loadFromRemote(
     if (getRealUrl != null) _url = (await getRealUrl()) ?? url;
 
     if (loadingProgress != null) {
-      client ??= http.Client();
+      client ??= HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       final _req = http.Request('GET', Uri.parse(_url));
       if (header != null) _req.headers.addAll(header);
       if (!acceptRangesHeader && bufferPosition != 0)
